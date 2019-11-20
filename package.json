@@ -1,0 +1,26 @@
+{
+  "name": "notes-todo-app",
+  "version": "1.0.0",
+  "description": "Aplicación de notas y todo's ",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PENA-VARELA-DEVELOPMENT/notes-todo-app.git"
+  },
+  "author": "Maynor Peña, Jackeline Varela",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PENA-VARELA-DEVELOPMENT/notes-todo-app/issues"
+  },
+  "homepage": "https://github.com/PENA-VARELA-DEVELOPMENT/notes-todo-app#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.11"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
