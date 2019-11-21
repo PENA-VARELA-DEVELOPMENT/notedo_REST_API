@@ -15,7 +15,7 @@ mongoose.connect(mongoUri, {
     useUnifiedTopology: true
 });
 mongoose.connection.on("connected", () => {
-    console.log("coneected to mongo cluster.");
+    console.log("conected to mongo cluster.");
 });
 mongoose.connection.on("error", err => {
     console.log("Error while connecting to mongo.", err);
@@ -29,6 +29,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", routes());
 
 // Escuchar en el puerto 9888
-app.use(5000, () => {
+app.listen(9888, () => {
     console.log("Listening on port 9888");
 })
