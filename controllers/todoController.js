@@ -1,8 +1,8 @@
-const Todo = require("../models/todo");
+const Notedo = require("../models/notedo");
 
 // Agregar tarea(todo)
 exports.addTodo = async (req, res, next) => {
-    const todo = new Todo(req.body);
+    const todo = new Notedo(req.body);
 
     try {
         await todo.save();
@@ -16,7 +16,7 @@ exports.addTodo = async (req, res, next) => {
 // Obtiene una tarea(todo) por su id
 exports.getOneTodo = async (req, res, next) => {
     try {
-        const todo = await Todo.findById(req.params.idTodo);
+        const todo = await Notedo.findById(req.params.idTodo);
 
         if (!todo) {
             res.status(404).send({ error: "la tarea no existe" });
@@ -32,7 +32,7 @@ exports.getOneTodo = async (req, res, next) => {
 // Obtiene todas las tareas(todo)
 exports.getAllTodos = async (req, res, next) => {
     try {
-        const todo = await Todo.find({});
+        const todo = await Notedo.find({});
 
         if (!todo) {
             res.status(404).send({ error: "Error al obtener las tareas." });
@@ -48,7 +48,7 @@ exports.getAllTodos = async (req, res, next) => {
 // Actualiza una tarea(todo) por su id
 exports.updateTodo = async (req, res, next) => {
     try {
-        const todo = await Todo.findOneAndUpdate(
+        const todo = await Notedo.findOneAndUpdate(
             { _id: req.params.idTodo },
             req.body,
             { new: true }

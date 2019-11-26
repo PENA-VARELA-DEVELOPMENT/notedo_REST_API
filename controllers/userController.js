@@ -11,20 +11,11 @@ exports.saveUser = async(req, res, next) => {
         errors.array().map(error => errorsArray.push(error.msg));
         
         //enviar los errores al usuario
-        req.flash("error", errorsArray);
-        
-        
-        res.render("register",{
-            messages: req.flash(),
-            alt: JSON.stringify(errorsArray)
-        });
+        res.status(400).send(errorsArray)
     }else{
         //crear el usuario
-
         const user = new User(req.body)
-
         await user.save();
-        req.flash("Hecho", ["Te has registrado correctamente."])
-        res.redirect("/login")
+        res.status(200).send({ message: "Te has registrado correctamente."})
     }
 }
