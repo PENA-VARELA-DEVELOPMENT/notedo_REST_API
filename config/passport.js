@@ -1,11 +1,13 @@
 const localStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
-const user = mongoose.model("user");
-const bcrypt = require("bcrypt");
+const user = require("../models/user")
+const bcrypt = require("bcryptjs");
 
 module.exports = function(passport){
     //Local Strategy
     passport.use(new localStrategy(function(username, password, done){
+        console.log("holas");
+        
         
         let query = { email:username }
         //verificar email

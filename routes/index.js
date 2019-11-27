@@ -1,8 +1,10 @@
 const express = require("express");
+const { check } = require("express-validator");
 const router = express.Router();
-const noteController = require("../controllers/noteController")
-const todoController = require("../controllers/todoController")
-
+const noteController = require("../controllers/noteController");
+const todoController = require("../controllers/todoController");
+const userController = require("../controllers/userController");
+const authController = require("../controllers/authController");
 
 
 module.exports = function () {
@@ -28,6 +30,7 @@ module.exports = function () {
             .custom((value, { req }) => value === req.body.password)
     ], userController.saveUser);
 
+    router.post("/login", authController.authenticateUser);
 
 
     // Operaciones de las notas 

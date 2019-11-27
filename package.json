@@ -18,13 +18,16 @@
   "homepage": "https://github.com/PENA-VARELA-DEVELOPMENT/notes-todo-app#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "connect-mongo": "^3.1.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "express-validator": "^6.3.0",
     "http-errors": "^1.7.3",
     "mongoose": "^5.7.11",
     "multer": "^1.4.2",
-    "passport": "^0.4.0"
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"

@@ -1,6 +1,7 @@
 const passport = require("passport");
 
-exports.authenticateUser = passport.authenticate('local', (err, user, info) => {
+exports.authenticateUser =  function(req, res) {  
+    passport.authenticate('local', (err, user, info) => {
     if (err) {
         res.status(500).send({message : "Ha ocurrido un error"})
     } else if(!user) {
@@ -14,7 +15,7 @@ exports.authenticateUser = passport.authenticate('local', (err, user, info) => {
         }
     })
     
-});
+})};
 
 
 exports.logOut = function (req, res) {
