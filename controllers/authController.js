@@ -1,23 +1,18 @@
 const passport = require("passport");
+const mongoose = require("mongoose");
 
-exports.authenticateUser =  function(req, res) {  
-    passport.authenticate('local', (err, user, info) => {
-    if (err) {
-        res.status(500).send({message : "Ha ocurrido un error"})
-    } else if(!user) {
-        res.status(400).send({message: "Nombre de usuario o contraseña invalidos."})
-    }
-    req.logIn(user, (err) => {
-        if (err) {
-            res.status(500).send({message : "Ha ocurrido un error"})
-        } else {
-            res.status(200).send({message : "Bienvenido"})
-        }
-    })
-    
-})};
+exports.authenticateUser = passport.authenticate('local',{
+    successRedirect: "/succesLogin",
+    failureRedirect: "/failureLogin"
+});
 
+exports.succesLogin = (req, res) => {
+    res.status(200).send({message : "Bienvenido"})
+}
 
+exports.failureLogin = (req, res) => {
+    res.status(400).send({message: "Nombre de usuario o contraseña invalidos."})
+}
 exports.logOut = function (req, res) {
     req.logout();
     res.status(200).send({ message: "Cerraste sesión"})

@@ -30,23 +30,28 @@ module.exports = function () {
             .custom((value, { req }) => value === req.body.password)
     ], userController.saveUser);
 
+    // auth routes
     router.post("/login", authController.authenticateUser);
-
+    router.get("/logout", authController.checkUser, authController.logOut);
+    router.get("/succesLogin", authController.checkUser, authController.succesLogin);
+    router.get("/failureLogin", authController.failureLogin);
 
     // Operaciones de las notas 
-    router.post("/note", noteController.addNote);               // C
-    router.get("/note/:idNote", noteController.getOneNote);     // R
-    router.get("/note", noteController.getAllNotes);            // R
-    router.put("/note/:idNote", noteController.updateNote);     // U
-    router.delete("/note/:idNote", noteController.deleteNote);  // D
+    router.post("/note", authController.checkUser, noteController.addNote);               // C
+    router.get("/note/:idNote", authController.checkUser, noteController.getOneNote);     // R
+    router.get("/note", authController.checkUser, noteController.getAllNotes);            // R
+    router.put("/note/:idNote", authController.checkUser, noteController.updateNote);     // U
+    router.delete("/note/:idNote", authController.checkUser, noteController.deleteNote);  // D
 
 
     // Operaciones de las tareas
-    router.post("/todo", todoController.addTodo);               // C
-    router.get("/todo/:idTodo", todoController.getOneTodo);     // R
-    router.get("/todo", todoController.getAllTodos);            // R
-    router.put("/todo/:idTodo", todoController.updateTodo);     // U
-    router.delete("/todo/:idTodo", todoController.deleteTodo);  // D
+    router.post("/todo", authController.checkUser, todoController.addTodo);               // C
+    router.get("/todo/:idTodo", authController.checkUser, todoController.getOneTodo);     // R
+    router.get("/todo", authController.checkUser, todoController.getAllTodos);            // R
+    router.put("/todo/:idTodo", authController.checkUser, todoController.updateTodo);     // U
+    router.delete("/todo/:idTodo", authController.checkUser, todoController.deleteTodo);  // D
+
+
 
     return router;
 }

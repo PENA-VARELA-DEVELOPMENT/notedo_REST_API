@@ -2,10 +2,19 @@ const Notedo = require("../models/notedo");
 
 // Agregar tarea(todo)
 exports.addTodo = async (req, res, next) => {
-    const todo = new Notedo(req.body);
-
     try {
-        await todo.save();
+        await Notedo.updateOne({
+            userID: req.user._id
+        },
+        {
+            $push:{todo:{
+                "title": req.body.title,
+                "body": req.body.body,
+                "status": req.body.status,
+                "color": "#44444"
+            }}
+        }
+        )
         res.status(201).send({ message: "Tarea agregada correctamente" });
     } catch (error) {
         res.status(422).send({error: "ha ocurrido un error al momento de guardar la tarea"})
@@ -16,12 +25,12 @@ exports.addTodo = async (req, res, next) => {
 // Obtiene una tarea(todo) por su id
 exports.getOneTodo = async (req, res, next) => {
     try {
-        const todo = await Notedo.findById(req.params.idTodo);
+        const todo = await Notedo.findOne({userID: req.user._id},{todo:{$elemMatch: {_id: req.params.idTodo }}});
 
         if (!todo) {
             res.status(404).send({ error: "la tarea no existe" });
         } else {
-            res.status(200).send(todo);
+            res.status(200).send(todo.todo);
         }
     } catch (error) {
         res.status(422).send({ error: "Ha ocurrido un error al momento de obtener la tarea" });
@@ -32,12 +41,12 @@ exports.getOneTodo = async (req, res, next) => {
 // Obtiene todas las tareas(todo)
 exports.getAllTodos = async (req, res, next) => {
     try {
-        const todo = await Notedo.find({});
+        const todo = await Notedo.findOne({userID: req.user._id});
 
         if (!todo) {
             res.status(404).send({ error: "Error al obtener las tareas." });
         } else {
-            res.status(200).send(todo);
+            res.status(200).send(todo.todo);
         }
     } catch (error) {
         res.status(422).send({ error: "Ha ocurrido un error al momento de obtener las tareas" });
@@ -48,14 +57,21 @@ exports.getAllTodos = async (req, res, next) => {
 // Actualiza una tarea(todo) por su id
 exports.updateTodo = async (req, res, next) => {
     try {
-        const todo = await Notedo.findOneAndUpdate(
-            { _id: req.params.idTodo },
-            req.body,
-            { new: true }
+        await Notedo.updateOne(
+            {userID: req.user._id, "todo._id":req.params.idTodo },
+            {$set:{
+                "todo.$.title": req.body.title,
+                "todo.$.body": req.body.body,
+                "todo.$.status": req.body.status,
+                "todo.$.lastModified": Date.now(),
+                "todo.$.color": req.body.color 
+            }}
         );
 
-        res.status(200).send(todo);
+        res.status(200).send({message: "Modificada correctamente"});
     } catch (error) {
+        console.log(error);
+        
         res
             .status(422)
             .send({ error: "Ha ocurrido un error al momento de actualizar" });
@@ -66,7 +82,10 @@ exports.updateTodo = async (req, res, next) => {
 // Eliminar una tarea(todo) por su id
 exports.deleteTodo = async (req, res, next) => {
     try {
-        await Todo.findByIdAndDelete({ _id: req.params.idTodo });
+        await Notedo.updateOne(
+            {userID: req.user._id},
+            {$pull:{"todo":{"_id": req.params.idTodo }}}
+        );
 
         res.status(200).send({ mensaje: "Tarea eliminada satisfactoriamente" });
     } catch (error) {
