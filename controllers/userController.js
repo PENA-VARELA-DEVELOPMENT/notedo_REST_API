@@ -9,6 +9,7 @@ exports.saveUser = async(req, res, next) => {
     const errorsArray = [];
 
     //si hay errores
+    console.log("aaaaaaaaaaaaa");
     
     try {
         if (!errors.isEmpty()) {
@@ -16,6 +17,11 @@ exports.saveUser = async(req, res, next) => {
             
             //enviar los errores al usuario
             res.status(400).send(errorsArray)
+
+            console.log(req.body);
+            console.log(errorsArray);
+            
+            
         }else{
             //crear el usuario
             const user = new User(req.body)
@@ -30,6 +36,8 @@ exports.saveUser = async(req, res, next) => {
             notedo.save()
     
             res.status(200).send({ message: "Te has registrado correctamente."})
+            console.log("hola");
+            
         }
     
     } catch (error) {
