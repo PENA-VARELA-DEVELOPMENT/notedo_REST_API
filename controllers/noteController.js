@@ -10,7 +10,7 @@ exports.addNote = async (req, res, next) => {
             $push:{note:{
                 "title": req.body.title,
                 "body": req.body.body,
-                "color": "#44444"
+                "color": req.body.color
             }}
         }
         )

@@ -31,9 +31,9 @@ module.exports = function () {
     ], userController.saveUser);
 
     // auth routes
-    router.post("/login", authController.checkUser, authController.authenticateUser);
+    router.post("/login", authController.authenticateUser);
     router.get("/logout", authController.checkUser, authController.logOut);
-    router.get("/succesLogin", authController.succesLogin);
+    router.get("/succesLogin", authController.checkUser, authController.succesLogin);
     router.get("/failureLogin", authController.failureLogin);
 
     // Operaciones de las notas 
