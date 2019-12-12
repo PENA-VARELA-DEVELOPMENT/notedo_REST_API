@@ -44,3 +44,7 @@ exports.saveUser = async(req, res, next) => {
         res.status(422).send({ message: "Ha ocurrido un error" })
     }
 }
+
+exports.sendUser = (req, res) => {
+    res.status(200).send({user: req.user})
+}

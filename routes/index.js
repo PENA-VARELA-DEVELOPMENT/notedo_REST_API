@@ -31,6 +31,7 @@ module.exports = function () {
     ], userController.saveUser);
 
     // auth routes
+    router.get("/user", authController.checkUser, userController.sendUser)
     router.post("/login", authController.authenticateUser);
     router.get("/logout", authController.checkUser, authController.logOut);
     router.get("/succesLogin", authController.checkUser, authController.succesLogin);

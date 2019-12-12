@@ -52,7 +52,8 @@ app.use(passport.session());
 app.use(cors({
     methods:['GET','POST'],
     credentials: true ,
-    origin: 'http://127.0.0.1:9888'
+    origin: 'http://127.0.0.1:9888',
+    methods: 'GET, POST, OPTIONS, PUT, DELETE'
 }))
 
 app.use((req, res, next) => {

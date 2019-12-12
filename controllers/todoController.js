@@ -8,10 +8,10 @@ exports.addTodo = async (req, res, next) => {
         },
         {
             $push:{todo:{
-                "title": req.body.title,
                 "body": req.body.body,
                 "status": req.body.status,
-                "color": "#44444"
+                "color": req.body.color,
+                "textColor": req.body.textColor
             }}
         }
         )
@@ -60,11 +60,11 @@ exports.updateTodo = async (req, res, next) => {
         await Notedo.updateOne(
             {userID: req.user._id, "todo._id":req.params.idTodo },
             {$set:{
-                "todo.$.title": req.body.title,
                 "todo.$.body": req.body.body,
                 "todo.$.status": req.body.status,
                 "todo.$.lastModified": Date.now(),
-                "todo.$.color": req.body.color 
+                "todo.$.color": req.body.color,
+                "todo.$.textColor": req.body.textColor 
             }}
         );
 
