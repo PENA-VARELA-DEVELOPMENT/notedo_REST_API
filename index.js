@@ -3,6 +3,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
 const mongoose = require("mongoose");
+const path = require("path");
 mongoose.set('useCreateIndex', true);
 const createError = require("http-errors");
 const bodyParser = require("body-parser");
@@ -14,6 +15,9 @@ require("dotenv").config({ path: "variables.env"});
 
 // crear el servidor de node
 const app = express();
+
+// elementos estaticos
+app.use(express.static(path.join(__dirname,"public")));
 
 // configuración de la conexion de mongo y mongoose
 const mongoUri = process.env.DATABASE;
