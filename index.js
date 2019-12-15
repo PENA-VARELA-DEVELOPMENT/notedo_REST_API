@@ -7,6 +7,7 @@ mongoose.set('useCreateIndex', true);
 const createError = require("http-errors");
 const bodyParser = require("body-parser");
 const routes = require("./routes/index");
+const cors= require("cors");
 
 // importar variables globales
 require("dotenv").config({ path: "variables.env"});
@@ -48,7 +49,20 @@ require("./config/passport")(passport)
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(cors({
+    methods:['GET','POST'],
+    credentials: true ,
+    origin: 'http://127.0.0.1:9888',
+    methods: 'GET, POST, OPTIONS, PUT, DELETE'
+}))
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:9888');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-COntrol-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+}) 
 
 // llamada a las rutas
 app.use("/", routes());
@@ -62,6 +76,6 @@ app.use((error, req, res, next) => {
  });
 
 // Escuchar en el puerto 9888
-app.listen(9888, () => {
+app.listen(9999, () => {
     console.log("Listening on port 9888");
 });

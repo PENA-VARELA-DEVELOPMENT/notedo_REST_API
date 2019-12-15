@@ -23,18 +23,24 @@ module.exports = function () {
         check("password", "La contraseña es requerida.")
             .not()
             .isEmpty(),
-        check("confirm-password", "Debe ingresar la confirmacion de su contraseña.")
+        check("confirmpassword", "Debe ingresar la confirmacion de su contraseña.")
             .not()
             .isEmpty(),
-        check("confirm-password", "Las contraseñas no coinciden.")
+        check("confirmpassword", "Las contraseñas no coinciden.")
             .custom((value, { req }) => value === req.body.password)
     ], userController.saveUser);
 
     // auth routes
+    router.get("/user", authController.checkUser, userController.sendUser)
     router.post("/login", authController.authenticateUser);
     router.get("/logout", authController.checkUser, authController.logOut);
     router.get("/succesLogin", authController.checkUser, authController.succesLogin);
     router.get("/failureLogin", authController.failureLogin);
+    router.post("/resetPass", userController.sendToken)
+    router.get("/resetPass/:token", userController.showResetPass)
+    router.post("/resetPasss/:token", userController.changePassword)
+    router.post("/editProfile", authController.checkUser, userController.editProfile)
+
 
     // Operaciones de las notas 
     router.post("/note", authController.checkUser, noteController.addNote);               // C

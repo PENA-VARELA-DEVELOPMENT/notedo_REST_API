@@ -7,7 +7,11 @@ exports.authenticateUser = passport.authenticate('local',{
 });
 
 exports.succesLogin = (req, res) => {
+    res.set('Content-Type', 'text/html')
+    console.log(req.session.cookie, req.user);
+    
     res.status(200).send({message : "Bienvenido"})
+    
 }
 
 exports.failureLogin = (req, res) => {

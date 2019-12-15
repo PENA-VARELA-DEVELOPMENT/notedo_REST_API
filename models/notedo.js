@@ -22,14 +22,13 @@ const notedoSchema = new Schema({
         color: {
             type: String,
             required: true
+        },
+        textColor: {
+            type: String,
+            required: true
         }
     }],
     todo: [{
-        title: {
-            type: String,
-            required: true,
-            trim: true
-        },
         body: {
             type: String
         },
@@ -41,6 +40,10 @@ const notedoSchema = new Schema({
             default: Date.now
         },
         color: {
+            type: String,
+            required: true
+        },
+        textColor: {
             type: String,
             required: true
         }
