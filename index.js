@@ -79,7 +79,12 @@ app.use((error, req, res, next) => {
   
  });
 
+
+ const host = "0.0.0.0";
+ const port = process.env.PORT;
+ 
+
 // Escuchar en el puerto 9888
-app.listen(9999, () => {
+app.listen(port, host, () => {
     console.log("Listening on port 9888");
 });
