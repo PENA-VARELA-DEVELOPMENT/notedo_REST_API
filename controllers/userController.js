@@ -4,6 +4,7 @@ const { validationResult } = require("express-validator");
 const enviarEmail = require("../handlers/email");
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
+const html = require("./assets/mailTemplate");
 
 exports.saveUser = async (req, res, next) => {
 
@@ -62,7 +63,14 @@ exports.sendToken = async (req, res) => {
         await user.save();
 
         // Generar la URL
-        const resetUrl = `http://${req.body.clientHost}/#/newPass/${user.token}`;
+        const resetUrl = 
+            html.htmls.html1 + 
+            `http://${req.headers.host}/images/Top.png` + 
+            html.htmls.html2 +
+            `http://${req.headers.host}/images/NT.png` +
+            html.htmls.html3 +
+            `http://${req.body.clientHost}/#/newPass/${user.token}` +
+            html.htmls.html4
 
         // Enviar la notificación por email
         await enviarEmail.enviar({
@@ -75,8 +83,9 @@ exports.sendToken = async (req, res) => {
 
         res.status(200).send({ message: "Se ha enviado el correo" });
     } catch (error) {
+        console.log(error);
         res.status(500).send({ message: "Ha ocurrido un error" });;
-    }
+    } 
 
 };
 
