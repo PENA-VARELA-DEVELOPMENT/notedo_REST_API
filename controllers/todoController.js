@@ -55,7 +55,7 @@ exports.getAllTodos = async (req, res, next) => {
 
 
 // Actualiza una tarea(todo) por su id
-exports.updateTodo = async (req, res, next) => {
+exports.updateTodo = async (req, res, next) => {   
     try {
         await Notedo.updateOne(
             {userID: req.user._id, "todo._id":req.params.idTodo },

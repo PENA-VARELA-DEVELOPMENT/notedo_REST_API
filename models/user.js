@@ -20,10 +20,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-  image: {
-    type: String,
-    default: "default.png"
-  },
   token: String,
   expires: Date
 });

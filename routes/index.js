@@ -36,6 +36,11 @@ module.exports = function () {
     router.get("/logout", authController.checkUser, authController.logOut);
     router.get("/succesLogin", authController.checkUser, authController.succesLogin);
     router.get("/failureLogin", authController.failureLogin);
+    router.post("/resetPass", userController.sendToken)
+    router.get("/resetPass/:token", userController.showResetPass)
+    router.post("/resetPasss/:token", userController.changePassword)
+    router.post("/editProfile", authController.checkUser, userController.editProfile)
+
 
     // Operaciones de las notas 
     router.post("/note", authController.checkUser, noteController.addNote);               // C
