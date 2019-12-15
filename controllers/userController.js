@@ -85,7 +85,7 @@ exports.sendToken = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: "Ha ocurrido un error" });;
-    }
+    } 
 
 };
 
