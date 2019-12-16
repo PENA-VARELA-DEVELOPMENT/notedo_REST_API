@@ -62,11 +62,6 @@ exports.sendToken = async (req, res) => {
         // Guardar el usuario
         await user.save();
 
-        let secureURL = req.body.clientHost.toString()
-        secureURL = secureURL.replace(/http/g, 'https')
-        console.log(req.body.clientHost);
-        
-
         // Generar la URL
         const resetUrl = 
             html.htmls.html1 + 
@@ -74,7 +69,7 @@ exports.sendToken = async (req, res) => {
             html.htmls.html2 +
             `http://${req.headers.host}/images/NT.png` +
             html.htmls.html3 +
-            `http://${secureURL}/#/newPass/${user.token}` +
+            `https://${req.body.clientHost}/#/newPass/${user.token}` +
             html.htmls.html4
 
         // Enviar la notificación por email
