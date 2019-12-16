@@ -56,12 +56,12 @@ app.use(passport.session());
 app.use(cors({
     methods:['GET','POST'],
     credentials: true ,
-    origin: 'http://127.0.0.1:9888',
+    origin: 'https://notedo.herokuapp.com/',
     methods: 'GET, POST, OPTIONS, PUT, DELETE'
 }))
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:9888');
+    res.header('Access-Control-Allow-Origin', 'https://notedo.herokuapp.com/');
     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-COntrol-Allow-Request-Method');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
