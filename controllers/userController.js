@@ -64,6 +64,8 @@ exports.sendToken = async (req, res) => {
 
         let secureURL = req.body.clientHost.toString()
         secureURL = secureURL.replace(/http/g, 'https')
+        console.log(req.body.clientHost);
+        
 
         // Generar la URL
         const resetUrl = 
