@@ -72,7 +72,7 @@ exports.sendToken = async (req, res) => {
             html.htmls.html2 +
             `http://${req.headers.host}/images/NT.png` +
             html.htmls.html3 +
-            `http://${}/#/newPass/${user.token}` +
+            `http://${secureURL}/#/newPass/${user.token}` +
             html.htmls.html4
 
         // Enviar la notificación por email
